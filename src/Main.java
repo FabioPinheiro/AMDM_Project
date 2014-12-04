@@ -4,8 +4,8 @@ public class Main {
 	
 	// ===== Configuration Values =====//
 	public static final Integer QuerrySize  = 1000;
-	//public static final Integer DataSetSize  = 15000000;
-	public static final Integer DataSetSize  = 5000;
+	public static final Integer DataSetSize  = 15000000;
+	//public static final Integer DataSetSize  = 5000;
 	public static final String DataFile = "tweets_15m.txt";
 	public static final String FilesPath = "tmp/";
 	public static final String sortedArrayFileName = FilesPath + "sorted.csv";
