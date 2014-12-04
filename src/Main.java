@@ -4,21 +4,22 @@ public class Main {
 	
 	// ===== Configuration Values =====//
 	public static final Integer QuerrySize  = 1000;
-	public static final Integer DataSetSize  = 15000000;
+	//public static final Integer DataSetSize  = 15000000;
+	public static final Integer DataSetSize  = 5000;
 	public static final String DataFile = "tweets_15m.txt";
 	public static final String FilesPath = "tmp/";
 	public static final String sortedArrayFileName = FilesPath + "sorted.csv";
 	public static final String[] Methods = {"frequent","infrequent","random"};
 	public static final Integer[] D = {0,2,4,6,8,10,12,14};
 	public static final double[] aprox = {0.5,0.2};
-	public static double[][] task3angles = new double[8][3];
-	public static double[][] task4angles = new double[8][3];
+	public static double[][][] task3angles = new double[8][3][1000];
+	public static double[][][] task4angles = new double[8][3][1000];
 	
 	// ===== To Run or Not to Run ===== //
-	public static final boolean rerunTask1 = false;
-	public static final boolean runBruteForce = false;
+	public static final boolean rerunTask1 = true;
+	public static final boolean runBruteForce = true;
 	public static final boolean runDataReduction = true;
-	public static final boolean runTask2 = false;
+	public static final boolean runTask2 = true;
 	public static final boolean runTask3 = true;
 	public static final boolean runTask4 = true;
 	
