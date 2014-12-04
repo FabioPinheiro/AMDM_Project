@@ -15,6 +15,9 @@ public class Main {
 	public static double[][][] task3angles = new double[8][3][1000];
 	public static double[][][] task4angles = new double[8][3][1000];
 	
+	public static double[][][] task4_05angles = new double[8][3][1000];
+	public static double[][][] task4_02angles = new double[8][3][1000];
+	
 	// ===== To Run or Not to Run ===== //
 	public static final boolean rerunTask1 = true;
 	public static final boolean runBruteForce = true;
@@ -42,61 +45,58 @@ public class Main {
 			System.out.println("Total Running Time: " + time + "ms");
 		}
 		
-		//-----DataReduction-----//
-		if(runDataReduction){
-			long startTime = System.currentTimeMillis();
-			for(String i : Methods){
-				for(int j : D){
-					Reduction.dataReduction(i, j, sortByNumberOfTweets);
+		long[][] task2times = new long[8][3];
+		long[][] task3times = new long[8][3];
+		long[][] task4times_05 = new long[8][3];
+		long[][] task4times_02 = new long[8][3];
+		for(String ii : Methods){
+			for(int jj : D){
+				
+				//-----DataReduction-----//
+				if(runDataReduction){
+					long startTime = System.currentTimeMillis();
+					Reduction.dataReduction(ii, jj, sortByNumberOfTweets);
+					long endTime   = System.currentTimeMillis();
+					long totalTime = endTime - startTime;
+					System.out.println("Data Reduction completed. Total time for reduction: " + totalTime + "ms");
 				}
-			}
-			long endTime   = System.currentTimeMillis();
-			long totalTime = endTime - startTime;
-			System.out.println("Data Reduction completed. Total time for reduction: " + totalTime + "ms");
-		}
-		
-		//-----Task2-----//
-		if(runTask2){
-			long[][] task2times = new long[8][3];
-			int k=0;
-			for(String i : Methods){
-				for(int j : D){
-					task2times[j/2][k] = Tasks.task2(i, j);
+			
+				//-----Task2-----//
+				if(runTask2){
+					int kk;
+					for(kk =0;! Methods[kk].equals(ii); kk++);
+					task2times[jj/2][kk] = Tasks.task2(ii, jj);
 				}
-				k+=1;
-			}
-			Tools.writerTimes("Task2.csv", task2times);
-		}
-		
-		//-----Task3-----//
-		if(runTask3){
-			long[][] task3times = new long[8][3];
-			int k=0;
-			for(String i : Methods){
-				for(int j : D){
-					task3times[j/2][k] = Tasks.task34(i, j, 0);
+				
+				//-----Task3-----//
+				if(runTask3){
+					int kk;
+					for(kk =0;! Methods[kk].equals(ii); kk++);
+					task3times[jj/2][kk] = Tasks.task34(ii, jj, 0);
 				}
-				k+=1;
-			}
-			Tools.writerTimes("Task3.csv", task3times);
-			Tools.writerAngles("Task3_angles.csv", task3angles);
-		}
-		
-		//-----Task4-----//
-		if(runTask4){
-			long[][] task4times = new long[8][3];
-			int k=0;
-			for(double aprox : aprox){
-				k=0;
-				for(String i : Methods){
-					for(int j : D){
-						task4times[j/2][k] = Tasks.task34(i, j, aprox);
+				
+				//-----Task4-----//
+				if(runTask4){
+					for(double aproxv : aprox){
+						int kk;
+						for(kk =0;! Methods[kk].equals(ii); kk++);
+						long time =  Tasks.task34(ii, jj, aproxv);
+						
+						if(aprox[0] == aproxv)
+							task4times_05[jj/2][kk] = time;
+						else
+							task4times_02[jj/2][kk] = time;
 					}
-					k+=1;
 				}
-				Tools.writerTimes("Task4_" + aprox + ".csv", task4times);
-				Tools.writerAngles("Task4_" + aprox + "_angles.csv", task4angles);
+				Reduction.deleteData(ii, jj);
 			}
 		}
+		Tools.writerTimes("Task2.csv", task2times);
+		Tools.writerTimes("Task3.csv", task3times);
+		Tools.writerAngles("Task3_angles.csv", task3angles);
+		Tools.writerTimes("Task4_" + "aprox05" + ".csv", task4times_05);
+		Tools.writerAngles("Task4_" + "aprox05" + "_angles.csv", task4_05angles);
+		Tools.writerTimes("Task4_" + "aprox02" + ".csv", task4times_05);
+		Tools.writerAngles("Task4_" + "aprox02" + "_angles.csv", task4_02angles);
 	}
 }

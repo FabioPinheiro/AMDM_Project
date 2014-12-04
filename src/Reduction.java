@@ -1,11 +1,17 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
 public class Reduction {
 
+	public static void deleteData(String method, int d) throws IOException{
+		Files.deleteIfExists(Paths.get(Main.FilesPath +"dataReduction" + "_Method:" + method +  "_D:"+d ));
+	}
+	
 	//===Subspace===//
 	public static ArrayList<String> subspace(String method, int d, ArrayList<Term> sort){
 		//Create array of terms only
