@@ -28,8 +28,10 @@ public class Tools {
 		
 		HashMap<String, Term> map = new HashMap<String, Term>();
 		String stringLine;
-
-		while((stringLine = reader.readLine()) != null){
+		
+		int cont=0;
+		while((stringLine = reader.readLine()) != null && cont<Main.DataSetSize){
+			cont++;
 			String[] terms = stringLine.split("\\s+");
 			for(int j=0;j<terms.length;j++){
 				map.put(terms[j], new Term(terms[j],0));
@@ -85,18 +87,23 @@ public class Tools {
 	}
 	
 	// ===== Export Angles Array ===== //
-	public static void writerAngles (String filename, double[][] angles) throws IOException{
-		BufferedWriter outputWriter = new BufferedWriter(new FileWriter(Main.FilesPath + filename));
-		for (int i = 0; i < angles.length; i++) {
-			String aux = new String();
-			for(int j = 0; j<angles[0].length; j++){
-				aux += angles[i][j] + (j!=angles[0].length-1 ? ", " : "");
+	public static void writerAngles (String filename, double[][][] angles) throws IOException{
+		for(int j = 0; j<angles[0].length; j++){
+			BufferedWriter outputWriter = new BufferedWriter(new FileWriter(Main.FilesPath +j+ filename));
+			for(int k = 0; k<angles[0][0].length; k++){
+				String aux = new String();
+				for (int i = 0; i < angles.length; i++) {
+				aux += angles[i][j][k] + (j!=angles[0].length-1 ? ", " : "");
+				}
+				outputWriter.write(aux);
+				outputWriter.newLine();
+				//if(i!=angles.length-1) outputWriter.newLine();
 			}
-			outputWriter.write(aux);
-			if(i!=angles.length-1) outputWriter.newLine();
+			
+
+			outputWriter.flush();  
+			outputWriter.close();  
 		}
-		outputWriter.flush();  
-		outputWriter.close();  
 	}
 
 	// ===== Angle Brute Force ===== //
